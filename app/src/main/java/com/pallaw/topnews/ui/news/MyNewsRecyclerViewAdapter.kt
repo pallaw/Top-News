@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pallaw.topnews.R
 import com.pallaw.topnews.data.dummy.DummyContent.DummyNews
-import kotlinx.android.synthetic.main.fragment_news.view.*
+import com.pallaw.topnews.util.TimeConverter
+import kotlinx.android.synthetic.main.item_news.view.*
 
 
 class MyNewsRecyclerViewAdapter(
@@ -29,14 +31,14 @@ class MyNewsRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_news, parent, false)
+            .inflate(R.layout.item_news, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-//        holder.mIdView.text = item.id
-//        holder.mContentView.text = item.content
+        holder.txt_news_item_time_ago.text =
+            TimeConverter.getTimeAgo("2020-05-08T12:31:42Z")
 
         with(holder.mView) {
             tag = item
@@ -47,7 +49,8 @@ class MyNewsRecyclerViewAdapter(
     override fun getItemCount(): Int = mValues.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: ImageView = mView.img_news_item
+        val img_news_item: ImageView = mView.img_news_item
+        val txt_news_item_time_ago: TextView = mView.txt_news_item_time_ago
 
     }
 
