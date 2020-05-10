@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.ViewCompat
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -19,8 +20,8 @@ import kotlinx.android.synthetic.main.item_news.view.*
 /**
  * Created by Pallaw Pathak on 10/05/20. - https://www.linkedin.com/in/pallaw-pathak-a6a324a1/
  */
-class NewsPagedListAdapter :
-    PagedListAdapter<Article, RecyclerView.ViewHolder>(MovieDiffCallback()) {
+class NewsPagedListAdapter(val listener: OnNewsItemClickListener) :
+    PagedListAdapter<Article, RecyclerView.ViewHolder>(diffCallback()) {
 
     val PHOTO_VIEW_TYPE = 1
     val NETWORK_VIEW_TYPE = 2
@@ -37,6 +38,7 @@ class NewsPagedListAdapter :
             return ArticleItemViewHolder(view)
         } else {
             view = layoutInflater.inflate(R.layout.item_network_state, parent, false)
+            view.tag = listener
             return NetworkStateItemViewHolder(view)
         }
     }
@@ -67,7 +69,7 @@ class NewsPagedListAdapter :
     }
 
 
-    class MovieDiffCallback : DiffUtil.ItemCallback<Article>() {
+    class diffCallback : DiffUtil.ItemCallback<Article>() {
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
             return oldItem.id == newItem.id
         }
@@ -79,17 +81,20 @@ class NewsPagedListAdapter :
     }
 
 
-    class ArticleItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ArticleItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val img_news_item: ImageView = view.img_news_item
-        val txt_news_item_time_ago: TextView = view.txt_news_item_time_ago
-        val txt_news_item_title: TextView = view.txt_news_item_title
-        val txt_news_item_des: TextView = view.txt_news_item_des
-        val txt_news_item_source: TextView = view.txt_news_item_source
+        val img_news_item: ImageView = itemView.img_news_item
+        val txt_news_item_time_ago: TextView = itemView.txt_news_item_time_ago
+        val txt_news_item_title: TextView = itemView.txt_news_item_title
+        val txt_news_item_des: TextView = itemView.txt_news_item_des
+        val txt_news_item_source: TextView = itemView.txt_news_item_source
 
         fun bind(article: Article?) {
-            article.let {
-                img_news_item.loadImage(it!!.urlToImage)
+
+            itemView.setOnClickListener { listener.onNewsItemClicked(article) }
+
+            article?.let {
+                img_news_item.loadImage(it.urlToImage)
                 txt_news_item_title.text = it.title
                 txt_news_item_des.text = it.description
                 txt_news_item_source.text = it.getAuthorName()
@@ -139,8 +144,10 @@ class NewsPagedListAdapter :
 
     }
 
-    interface OnNewsItemClickListener{
-        fun onNewsItemClicked(item: Article)
+    interface OnNewsItemClickListener {
+        fun onNewsItemClicked(
+            item: Article?
+        )
     }
 
 }

@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /**
  * Created by Pallaw Pathak on 08/05/20. - https://www.linkedin.com/in/pallaw-pathak-a6a324a1/
@@ -23,7 +24,7 @@ data class Article(
 
     @ColumnInfo(name = "content")
     @SerializedName("content")
-    var content: Any? = Any(),
+    var content: String? = "",
 
     @ColumnInfo(name = "description")
     @SerializedName("description")
@@ -48,7 +49,7 @@ data class Article(
     @ColumnInfo(name = "urlToImage")
     @SerializedName("urlToImage")
     var urlToImage: String = ""
-) {
+) : Serializable {
     fun getAuthorName(): CharSequence? {
         val builder = StringBuilder()
         author?.let { authorName ->

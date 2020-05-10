@@ -21,5 +21,9 @@
         android:id="@+id/newsDetailFragment"
         android:name="com.pallaw.topnews.ui.news.detail.NewsDetailFragment"
         android:label="@string/news_detail_fragment_label"
-        tools:layout="@layout/fragment_news_detail" />
+        tools:layout="@layout/fragment_news_detail" >
+        <argument
+            android:name="item"
+            app:argType="com.pallaw.topnews.data.model.resourse.Article" />
+    </fragment>
 </navigation>

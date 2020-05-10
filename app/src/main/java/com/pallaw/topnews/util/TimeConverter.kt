@@ -26,7 +26,7 @@ object TimeConverter {
         return getTimeAgoFromTimeStamp(date.time)
     }
 
-    fun getTimeAgoFromTimeStamp(timeStamp: Long): String {
+    private fun getTimeAgoFromTimeStamp(timeStamp: Long): String {
         var time = timeStamp
 
         if (time < 1000000000000L) {
