@@ -1,4 +1,4 @@
-package com.pallaw.topnews.ui.news
+package com.pallaw.topnews.ui.news.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.pallaw.topnews.R
 
 /**
- * A simple [Fragment] subclass.
+ * Created by Pallaw Pathak on 08/05/20. - https://www.linkedin.com/in/pallaw-pathak-a6a324a1/
  */
 class NewsDetailFragment : Fragment() {
 

@@ -6,7 +6,7 @@
     app:startDestination="@id/newslistFragment">
     <fragment
         android:id="@+id/newslistFragment"
-        android:name="com.pallaw.topnews.ui.news.NewsListFragment"
+        android:name="com.pallaw.topnews.ui.news.list.NewsListFragment"
         android:label="@string/news_list_fragment_label"
         tools:layout="@layout/fragment_news_list">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/newsDetailFragment"
-        android:name="com.pallaw.topnews.ui.news.NewsDetailFragment"
+        android:name="com.pallaw.topnews.ui.news.detail.NewsDetailFragment"
         android:label="@string/news_detail_fragment_label"
         tools:layout="@layout/fragment_news_detail" />
 </navigation>

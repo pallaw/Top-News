@@ -1,4 +1,4 @@
-package com.pallaw.topnews.data.resourse
+package com.pallaw.topnews.data.model.resourse
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
@@ -6,6 +6,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Created by Pallaw Pathak on 08/05/20. - https://www.linkedin.com/in/pallaw-pathak-a6a324a1/
+ */
 @Entity(tableName = "article")
 data class Article(
 
@@ -16,7 +19,7 @@ data class Article(
 
     @ColumnInfo(name = "author")
     @SerializedName("author")
-    var author: String = "",
+    var author: String? = null,
 
     @ColumnInfo(name = "content")
     @SerializedName("content")
@@ -45,4 +48,19 @@ data class Article(
     @ColumnInfo(name = "urlToImage")
     @SerializedName("urlToImage")
     var urlToImage: String = ""
-)
+) {
+    fun getAuthorName(): CharSequence? {
+        val builder = StringBuilder()
+        author?.let { authorName ->
+            builder.append(authorName)
+        }
+
+        if (builder.isNotEmpty()) {
+            builder.append("${(source.let { return@let " - ${it.name}" })}")
+        } else {
+            builder.append(source.let { it.name })
+        }
+
+        return builder.toString()
+    }
+}

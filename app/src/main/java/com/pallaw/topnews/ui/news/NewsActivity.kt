@@ -9,6 +9,9 @@ import com.pallaw.topnews.R
 
 import kotlinx.android.synthetic.main.activity_main.*
 
+/**
+ * Created by Pallaw Pathak on 08/05/20. - https://www.linkedin.com/in/pallaw-pathak-a6a324a1/
+ */
 class NewsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
