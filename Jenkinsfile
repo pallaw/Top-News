@@ -9,11 +9,18 @@ pipeline {
                 sh 'chmod +x gradlew'
             }
         }
+
         stage("Build APK") {
             steps {
                 sh 'ci-scripts/build.sh'
             }
         }
 
+        stage('Slack it'){
+            steps {
+                slackSend channel: '#android-builds',
+                        message: 'build success'
+            }
+        }
     }
 }
