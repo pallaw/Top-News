@@ -14,7 +14,7 @@ class ArticleDataSourceFactory(
     private val compositeDisposable: CompositeDisposable
 ) : DataSource.Factory<Int, Article>() {
 
-    val newsLiveDataSource = MutableLiveData<ArticleDataSource>()
+    val newsLiveDataSource = MutableLiveData<ArticleDataSource>() 
 
     override fun create(): DataSource<Int, Article> {
         val newsDataSource =

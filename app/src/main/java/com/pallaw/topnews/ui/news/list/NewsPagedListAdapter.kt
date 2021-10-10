@@ -94,7 +94,7 @@ class NewsPagedListAdapter(val listener: OnNewsItemClickListener) :
             itemView.setOnClickListener { listener.onNewsItemClicked(article) }
 
             article?.let {
-                img_news_item.loadImage(it.urlToImage)
+                img_news_item.loadImage(it.urlToImage ?:"")
                 txt_news_item_title.text = it.title
                 txt_news_item_des.text = it.description
                 txt_news_item_source.text = it.getAuthorName()
