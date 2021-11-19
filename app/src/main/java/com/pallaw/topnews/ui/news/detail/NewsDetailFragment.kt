@@ -42,7 +42,7 @@ class NewsDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         item?.let { article ->
-            img_detail.loadImage(article.urlToImage)
+            img_detail.loadImage(article.urlToImage ?:"")
             txt_detail_title.text = article.title
             txt_detail_author.text = article.getAuthorName() ?: ""
             txt_detail_date.text = TimeConverter.getTimeAgo(article.publishedAt) ?: ""

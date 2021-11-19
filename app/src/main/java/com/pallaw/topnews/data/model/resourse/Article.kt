@@ -48,7 +48,7 @@ data class Article(
 
     @ColumnInfo(name = "urlToImage")
     @SerializedName("urlToImage")
-    var urlToImage: String = ""
+    var urlToImage: String? = null
 ) : Serializable {
     fun getAuthorName(): CharSequence? {
         val builder = StringBuilder()
