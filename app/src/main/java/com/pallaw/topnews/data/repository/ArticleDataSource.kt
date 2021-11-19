@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.pallaw.topnews.data.model.resourse.Article
-import com.pallaw.topnews.data.remote.Api
-import com.pallaw.topnews.data.remote.ApiClient
-import com.pallaw.topnews.data.remote.ApiClient.FIRST_PAGE
+import com.pallaw.topnews.data.remote.ApiService
+import com.pallaw.topnews.di.NetworkModule.FIRST_PAGE
+import com.pallaw.topnews.di.NetworkModule.ITEM_PER_PAGE
 import com.pallaw.topnews.util.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 const val DEFAULT_SEARCH_TAG = "android"
 
 class ArticleDataSource(
-    private val apiService: Api,
+    private val apiServiceService: ApiService,
     private val compositeDisposable: CompositeDisposable
 ) : PageKeyedDataSource<Int, Article>() {
 
@@ -41,7 +41,7 @@ class ArticleDataSource(
         page: Int,
         callback: LoadInitialCallback<Int, Article>
     ): Disposable {
-        return apiService.fetchNews(page)
+        return apiServiceService.fetchNews(page)
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
@@ -64,11 +64,11 @@ class ArticleDataSource(
         page: Int,
         callback: LoadCallback<Int, Article>
     ): Disposable {
-        return apiService.fetchNews(page)
+        return apiServiceService.fetchNews(page)
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-                    if ((it.totalResults / ApiClient.ITEM_PER_PAGE) >= page) {
+                    if ((it.totalResults / ITEM_PER_PAGE) >= page) {
                         callback.onResult(it.articles, page + 1)
                         networkState.postValue(NetworkState.LOADED)
                     } else {

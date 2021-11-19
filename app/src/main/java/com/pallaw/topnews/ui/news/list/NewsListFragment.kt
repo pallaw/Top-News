@@ -7,22 +7,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pallaw.firebasegallery.viewmodel.factory.NewsViewModelFactory
 import com.pallaw.topnews.R
 import com.pallaw.topnews.data.model.resourse.Article
-import com.pallaw.topnews.data.remote.Api
-import com.pallaw.topnews.data.remote.ApiClient
+import com.pallaw.topnews.data.remote.ApiService
 import com.pallaw.topnews.data.repository.ArticlePagedListRepository
 import com.pallaw.topnews.util.NetworkState
 import com.pallaw.topnews.viewmodel.NewsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_news_list.*
+import javax.inject.Inject
 
 /**
  * Created by Pallaw Pathak on 08/05/20. - https://www.linkedin.com/in/pallaw-pathak-a6a324a1/
  */
+
+@AndroidEntryPoint
 class NewsListFragment : Fragment(),
     NewsPagedListAdapter.OnNewsItemClickListener {
 
@@ -30,10 +32,11 @@ class NewsListFragment : Fragment(),
     private lateinit var newsAdapter: NewsPagedListAdapter
     private lateinit var viewModel: NewsViewModel
     val photoRepository: ArticlePagedListRepository by lazy {
-        ArticlePagedListRepository(apiService)
+        ArticlePagedListRepository(apiServiceService)
     }
 
-    val apiService: Api by lazy { ApiClient.getClient() }
+    @Inject
+    lateinit var apiServiceService: ApiService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

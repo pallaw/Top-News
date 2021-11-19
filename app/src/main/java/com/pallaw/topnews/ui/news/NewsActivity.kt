@@ -6,12 +6,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.pallaw.topnews.R
+import dagger.hilt.android.AndroidEntryPoint
 
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Created by Pallaw Pathak on 08/05/20. - https://www.linkedin.com/in/pallaw-pathak-a6a324a1/
  */
+@AndroidEntryPoint
 class NewsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
